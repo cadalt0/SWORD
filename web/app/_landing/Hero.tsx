@@ -136,8 +136,14 @@ function local(amount: number, currency: string) {
   }).format(amount);
 }
 
-/// A live transfer: 1,000 USDC in, local money out, at today's exchange rate. It moves on to the next country every
-/// few seconds, and its three steps fill in each time.
+/// The two stablecoins the card sends, one after the other.
+const COINS = [
+  { symbol: "USDC", glyph: "$", color: "#2775ca" },
+  { symbol: "USDT", glyph: "₮", color: "#26a17b" },
+];
+
+/// A live transfer: 1,000 USDC or USDT in, local money out, at today's exchange rate. It moves on to the next country
+/// every few seconds, switching between USDC and USDT, and its three steps fill in each time.
 function TransferCard() {
   const rates = useRates();
   const reduce = useReducedMotion();
@@ -162,6 +168,7 @@ function TransferCard() {
   const country = countryOf(route.code)!;
   const rate = rates?.rates[country.currency] ?? FALLBACK_RATES[country.currency] ?? 1;
   const done = reduce || step >= 3;
+  const coin = COINS[i % COINS.length];
 
   return (
     <motion.div
@@ -189,9 +196,15 @@ function TransferCard() {
           <p className="text-xs text-white/45">You send</p>
           <div className="mt-1 flex items-center justify-between">
             <span className="text-3xl font-semibold tracking-tight tabular-nums text-white">1,000.00</span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/8 py-1 pl-1 pr-3 text-sm font-medium text-white">
-              <span className="grid size-6 place-items-center rounded-full bg-[#2775ca] text-[11px] font-bold">$</span>
-              USDC
+            <span className="relative inline-flex h-8 min-w-[92px] items-center overflow-hidden rounded-full bg-white/8 text-sm font-medium text-white">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span key={coin.symbol} initial={{ y: 22, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -22, opacity: 0 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} className="inline-flex items-center gap-2 py-1 pl-1 pr-3">
+                  <span className="grid size-6 place-items-center rounded-full text-[11px] font-bold" style={{ backgroundColor: coin.color }}>
+                    {coin.glyph}
+                  </span>
+                  {coin.symbol}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </div>
         </div>
@@ -200,8 +213,8 @@ function TransferCard() {
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#15122a] px-3 py-1.5 text-[11px] text-white/60 shadow-lg">
             <ArrowDown className="size-3.5 text-violet-300" />
             <AnimatePresence mode="wait" initial={false}>
-              <motion.span key={country.code} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.2 }} className="tabular-nums">
-                1 USDC = {local(rate, country.currency)}
+              <motion.span key={`${country.code}-${coin.symbol}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.2 }} className="tabular-nums">
+                1 {coin.symbol} = {local(rate, country.currency)}
               </motion.span>
             </AnimatePresence>
           </span>
