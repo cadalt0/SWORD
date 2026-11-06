@@ -1,0 +1,41 @@
+{
+  "name": "sword-merchant",
+  "version": "0.1.1",
+  "description": "Accept Sword payments from your backend: create orders and subscriptions with an API key and get a checkout link.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map"
+  ],
+  "keywords": [
+    "sword",
+    "payments",
+    "usdt",
+    "whitechain",
+    "checkout"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\""
+  },
+  "dependencies": {
+    "viem": "^2.57.16"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "~6.0.3"
+  }
+}
