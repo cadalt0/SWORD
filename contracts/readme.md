@@ -1,4 +1,23 @@
-# Sword deployed contracts, Whitechain testnet (chain 1874)
+# Sword deployed contracts
+
+The same contracts are deployed on two networks. Each merchant and customer account lives on one of them.
+
+## Arc testnet (chain 5042002)
+
+Explorer: https://explorer.testnet.arc.io
+
+| Contract | Address | Deploy transaction | Role |
+|---|---|---|---|
+| MerchantSpender | [`0x6a2694158de4141a31c428d06a8aee994dfddc86`](https://explorer.testnet.arc.io/address/0x6a2694158de4141a31c428d06a8aee994dfddc86) | [`0xa585950a…373173`](https://explorer.testnet.arc.io/tx/0xa585950a1056f6010711ab6585f78e5e9dd57b7100ccfdaba3ac0d2dbb373173) | Pulls payments, runs subscriptions and refunds |
+| CollectorFactory | [`0xa8336857bf520c3340b8a18945a534852124dd44`](https://explorer.testnet.arc.io/address/0xa8336857bf520c3340b8a18945a534852124dd44) | [`0x197e2e57…5bbd4c`](https://explorer.testnet.arc.io/tx/0x197e2e571f92e634e3028dacccf34413624e8eb379ce56e0f7f92322c15bbd4c) | Creates a deposit address for each order |
+| MerchantRegistry | [`0x8380f81dc88182c8f0d082a785a05e75aeb28600`](https://explorer.testnet.arc.io/address/0x8380f81dc88182c8f0d082a785a05e75aeb28600) | [`0x735edd61…81a21e`](https://explorer.testnet.arc.io/tx/0x735edd618dda82d671e50e998c7979e184f3586423537f72d34fa1eaaf81a21e) | Registers merchants and their order books |
+| CustomerAccount (blueprint) | [`0x6e5e87d19dc7b54c5afb86a75c52844774994568`](https://explorer.testnet.arc.io/address/0x6e5e87d19dc7b54c5afb86a75c52844774994568) | [`0xcdf90d1a…eb76c3`](https://explorer.testnet.arc.io/tx/0xcdf90d1a8c2dd6febe03206a0c60dfdd07864861e647b64b26b40e8c3deb76c3) | Template copied for every customer account |
+| MerchantAccount (blueprint) | [`0x076aa9be90d48afeefae164fb6b5186577902444`](https://explorer.testnet.arc.io/address/0x076aa9be90d48afeefae164fb6b5186577902444) | [`0x020fa8e4…b824e8`](https://explorer.testnet.arc.io/tx/0x020fa8e4b1c5ee76630c8530d8d5cdf07b3a1cd9731bdc0abb4a5f8995b824e8) | Template copied for every merchant account |
+| AccountFactory | [`0x025f7371db8a5f2418469ee84b838c16cc811068`](https://explorer.testnet.arc.io/address/0x025f7371db8a5f2418469ee84b838c16cc811068) | [`0xa59d4b77…2244fa`](https://explorer.testnet.arc.io/tx/0xa59d4b7774f8b94252638cf6ae1ed9d9aefff908c1acd67eeeeea698762244fa) | Creates customer and merchant accounts |
+| SubscriptionVault (template) | [`0xb6090865Ee553A05a1E6c04C4f3495D07706CB0d`](https://explorer.testnet.arc.io/address/0xb6090865Ee553A05a1E6c04C4f3495D07706CB0d) | | Created inside the MerchantSpender. Copied once per subscription. |
+| USDC (6 decimals) | [`0x3600000000000000000000000000000000000000`](https://explorer.testnet.arc.io/address/0x3600000000000000000000000000000000000000) | | Arc's USDC, used for all payments |
+
+## Whitechain testnet (chain 1874)
 
 Explorer: https://explorer.testnet.whitechain.io
 
